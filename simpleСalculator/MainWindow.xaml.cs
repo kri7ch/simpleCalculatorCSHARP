@@ -49,13 +49,18 @@ namespace simpleСalculator
 
         private void AddNumber(string number)
         {
-            if (tb_result.Text == "0" || tb_result.Text == "")
+            // Если вводимое число является "-" и результат пуст, это начало отрицательного числа.
+            if (number == "-" && (tb_result.Text == "0" || tb_result.Text == ""))
             {
-                tb_result.Text = number;
+                tb_result.Text = number; // Начинаем новое отрицательное число
+            }
+            else if (tb_result.Text == "0" || tb_result.Text == "")
+            {
+                tb_result.Text = number; // Если 0 или пустое, то просто добавляем
             }
             else
             {
-                tb_result.Text += number;
+                tb_result.Text += number; // Добавляем к существующему значению
             }
         }
 
@@ -66,15 +71,20 @@ namespace simpleСalculator
                 tb_result.Text = tb_result.Text.Substring(0, tb_result.Text.Length - 1);
             }
 
-            int lastSignIndex = tb_result.Text.LastIndexOfAny(signs);
-            if (lastSignIndex != -1)
+            // Обновите логику для учета предыдущего знака (например, если мы только что ввели отрицательное число)
+            if (IsLastCharacterSign())
             {
-                return;
+                return; // если последний символ - знак, не добавляем новый
             }
 
-            if (!IsLastCharacterSign())
+            // Проверка на ввод (-)
+            if (addedSign == '-' && (tb_result.Text == "0" || tb_result.Text == ""))
             {
-                tb_result.Text += addedSign;
+                tb_result.Text += addedSign; // Добавляем знак минус как первый символ
+            }
+            else if (!IsLastCharacterSign())
+            {
+                tb_result.Text += addedSign; // Иначе просто добавляем знак
             }
         }
 
@@ -128,6 +138,7 @@ namespace simpleСalculator
 
             if (parts.Length != 2) return 0;
 
+            MessageBox.Show(parts[0].ToString());
             double firstNumber = Convert.ToDouble(parts[0]);
 
             if(parts[1] == "")
