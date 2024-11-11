@@ -49,42 +49,43 @@ namespace simpleСalculator
 
         private void AddNumber(string number)
         {
-            // Если вводимое число является "-" и результат пуст, это начало отрицательного числа.
             if (number == "-" && (tb_result.Text == "0" || tb_result.Text == ""))
             {
-                tb_result.Text = number; // Начинаем новое отрицательное число
+                tb_result.Text = number;
             }
             else if (tb_result.Text == "0" || tb_result.Text == "")
             {
-                tb_result.Text = number; // Если 0 или пустое, то просто добавляем
+                tb_result.Text = number;
             }
             else
             {
-                tb_result.Text += number; // Добавляем к существующему значению
+                tb_result.Text += number;
             }
         }
 
         private void HandleSignInput(char addedSign)
         {
+            if (IsLastCharacterSign())
+            {
+                return;
+            }
+
             if (tb_result.Text.EndsWith(comma.ToString()))
             {
                 tb_result.Text = tb_result.Text.Substring(0, tb_result.Text.Length - 1);
             }
 
-            // Обновите логику для учета предыдущего знака (например, если мы только что ввели отрицательное число)
-            if (IsLastCharacterSign())
+            if (tb_result.Text.Length > 0)
             {
-                return; // если последний символ - знак, не добавляем новый
+                if (!char.IsDigit(tb_result.Text[tb_result.Text.Length - 1]))
+                {
+                    tb_result.Text = tb_result.Text.Substring(0, tb_result.Text.Length - 1);
+                }
             }
 
-            // Проверка на ввод (-)
-            if (addedSign == '-' && (tb_result.Text == "0" || tb_result.Text == ""))
+            if (double.TryParse(tb_result.Text, out _))
             {
-                tb_result.Text += addedSign; // Добавляем знак минус как первый символ
-            }
-            else if (!IsLastCharacterSign())
-            {
-                tb_result.Text += addedSign; // Иначе просто добавляем знак
+                tb_result.Text += addedSign;
             }
         }
 
@@ -118,11 +119,18 @@ namespace simpleСalculator
 
         private double CalculateResult(string input)
         {
+            double firstNumber = 0;
             double secondNumber = 0;
             char operatorChar = '\0';
+            int operatorIndex = -1;
+            bool isNegative = input.StartsWith("-");
+
+            int startIndex = isNegative ? 1 : 0;
+
             foreach (char sign in signs)
             {
-                if (input.Contains(sign))
+                operatorIndex = input.IndexOf(sign, startIndex);
+                if (operatorIndex != -1)
                 {
                     operatorChar = sign;
                     break;
@@ -134,18 +142,16 @@ namespace simpleСalculator
                 return 0;
             }
 
-            string[] parts = input.Split(operatorChar);
+            string[] parts = input.Split(new char[] { operatorChar }, 2);
 
-            if (parts.Length != 2) return 0;
+            firstNumber = Convert.ToDouble(parts[0]);
 
-            MessageBox.Show(parts[0].ToString());
-            double firstNumber = Convert.ToDouble(parts[0]);
-
-            if(parts[1] == "")
+            if (parts[1] == "")
             {
                 secondNumber = firstNumber;
             }
-            else
+
+            if (parts.Length > 1 && !string.IsNullOrEmpty(parts[1]))
             {
                 secondNumber = Convert.ToDouble(parts[1]);
             }
