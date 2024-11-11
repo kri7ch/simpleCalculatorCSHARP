@@ -1,0 +1,107 @@
+﻿<Window x:Class="simpleСalculator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:simpleСalculator"
+        mc:Ignorable="d"
+        Title="Калькулятор" Height="750" Width="500" MinHeight="750" MinWidth="500" WindowStartupLocation="CenterScreen">
+    <Grid Background="Black">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBox Style="{StaticResource tb_style}" CommandManager.PreviewExecuted="textBox_PreviewExecuted"
+                 MaxLength="17" x:Name="tb_result" Margin="10"
+                 Grid.RowSpan="2" Grid.ColumnSpan="4" BorderBrush="{x:Null}" 
+                 TextChanged="tb_result_TextChanged" 
+                 PreviewKeyDown="tb_result_PreviewKeyDown" 
+                 PreviewTextInput="tb_result_PreviewTextInput" HorizontalAlignment="Stretch"/>
+
+        <Button x:Name="btn_AC" Content="AC" Style="{StaticResource btn_style_2}" 
+                Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Stretch" 
+                HorizontalAlignment="Stretch" Margin="5" BorderBrush="{x:Null}" Click="btn_AC_Click"/>
+
+        <Button x:Name="btn_acFull" Content="C" Style="{StaticResource btn_style_2}" 
+                Grid.Row="2" Grid.Column="2" VerticalAlignment="Stretch" 
+                HorizontalAlignment="Stretch" Margin="5" BorderBrush="{x:Null}" Click="btn_acFull_Click"/>
+
+        <Button x:Name="btn_7" Content="7" Click="Button_Click" Style="{StaticResource btn_style}" 
+                Grid.Row="3" Grid.Column="0" VerticalAlignment="Stretch" 
+                HorizontalAlignment="Stretch" Margin="5" BorderBrush="{x:Null}"/>
+
+        <Button x:Name="btn_8" Content="8" Click="Button_Click" Style="{StaticResource btn_style}" 
+                Grid.Row="3" Grid.Column="1" VerticalAlignment="Stretch" 
+                HorizontalAlignment="Stretch" Margin="5" BorderBrush="{x:Null}"/>
+
+        <Button x:Name="btn_9" Content="9" Click="Button_Click" Style="{StaticResource btn_style}" 
+                Grid.Row="3" Grid.Column="2" VerticalAlignment="Stretch" 
+                HorizontalAlignment="Stretch" Margin="5" BorderBrush="{x:Null}"/>
+
+
+        <Button x:Name="btn_4" Content="4" Click="Button_Click" Style="{StaticResource btn_style}" 
+                Grid.Row="4" Grid.Column="0" VerticalAlignment="Stretch" 
+                HorizontalAlignment="Stretch" Margin="5" BorderBrush="{x:Null}"/>
+
+        <Button x:Name="btn_5" Content="5" Click="Button_Click" Style="{StaticResource btn_style}" 
+                Grid.Row="4" Grid.Column="1" VerticalAlignment="Stretch" 
+                HorizontalAlignment="Stretch" Margin="5" BorderBrush="{x:Null}"/>
+
+        <Button x:Name="btn_6" Content="6" Click="Button_Click" Style="{StaticResource btn_style}" 
+                Grid.Row="4" Grid.Column="2" VerticalAlignment="Stretch" 
+                HorizontalAlignment="Stretch" Margin="5" BorderBrush="{x:Null}"/>
+
+
+        <Button x:Name="btn_1" Content="1" Click="Button_Click" Style="{StaticResource btn_style}" 
+                Grid.Row="5" Grid.Column="0" VerticalAlignment="Stretch" 
+                HorizontalAlignment="Stretch" Margin="5" BorderBrush="{x:Null}"/>
+
+        <Button x:Name="btn_2" Content="2" Click="Button_Click" Style="{StaticResource btn_style}" 
+                Grid.Row="5" Grid.Column="1" VerticalAlignment="Stretch" 
+                HorizontalAlignment="Stretch" Margin="5" BorderBrush="{x:Null}"/>
+
+        <Button x:Name="btn_3" Content="3" Click="Button_Click" Style="{StaticResource btn_style}" 
+                Grid.Row="5" Grid.Column="2" VerticalAlignment="Stretch" 
+                HorizontalAlignment="Stretch" Margin="5" BorderBrush="{x:Null}"/>
+
+        <Button x:Name="btn_dot" Content="," Click="Button_Click" Style="{StaticResource btn_style}" 
+                Grid.Row="6" Grid.Column="0" VerticalAlignment="Stretch" 
+                HorizontalAlignment="Stretch" Margin="5" BorderBrush="{x:Null}"/>
+
+        <Button x:Name="btn_0" Content="0" Click="Button_Click" Style="{StaticResource btn_style}" 
+                Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Stretch" 
+                HorizontalAlignment="Stretch" Margin="5" BorderBrush="{x:Null}"/>
+
+        <Button x:Name="btn_result" Content="=" Style="{StaticResource btn_style_signs}" 
+                Grid.Row="6" Grid.Column="3" VerticalAlignment="Stretch" 
+                HorizontalAlignment="Stretch" Margin="5" BorderBrush="{x:Null}" Click="btn_result_Click"/>
+
+        <Button x:Name="btn_plus" Content="+" Click="Button_Click" Style="{StaticResource btn_style_signs}" 
+                Grid.Row="5" Grid.Column="3" VerticalAlignment="Stretch" 
+                HorizontalAlignment="Stretch" Margin="5" BorderBrush="{x:Null}"/>
+
+        <Button x:Name="btn_minus" Content="-" Click="Button_Click" Style="{StaticResource btn_style_signs}" 
+                Grid.Row="4" Grid.Column="3" VerticalAlignment="Stretch" 
+                HorizontalAlignment="Stretch" Margin="5" BorderBrush="{x:Null}"/>
+
+        <Button x:Name="btn_multiply" Content="*" Click="Button_Click" Style="{StaticResource btn_style_signs}" 
+                Grid.Row="3" Grid.Column="3" VerticalAlignment="Stretch" 
+                HorizontalAlignment="Stretch" Margin="5" BorderBrush="{x:Null}"/>
+
+        <Button x:Name="btn_share" Content="/" Click="Button_Click" Style="{StaticResource btn_style_signs}" 
+                Grid.Row="2" Grid.Column="3" VerticalAlignment="Stretch" 
+                HorizontalAlignment="Stretch" Margin="5" BorderBrush="{x:Null}"/>
+    </Grid>
+</Window>
